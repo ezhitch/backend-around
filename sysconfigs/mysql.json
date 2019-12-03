@@ -1,0 +1,9 @@
+{
+	"host": "localhost",
+	"user": "root",
+	"password": "Czt181623^",
+	"database": "souvenir",
+	"port": 3306,
+	"connectionLimit": 16,
+	"multipleStatements": true
+}

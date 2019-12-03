@@ -1,0 +1,32 @@
+{
+  "appenders": {
+    "console": {
+      "type": "console"
+    },
+    "main": {
+      "type": "dateFile",
+      "filename": "logs/main.log",
+      "pattern": ".yyyy.MM.dd"
+    },
+    "errorFilter": {
+      "type": "logLevelFilter",
+      "appender": "error",
+      "level": "ERROR"
+    },
+    "error": {
+      "type": "file",
+      "filename": "logs/error.log",
+      "maxLogSize": 104857600,
+      "backup": 10,
+      "compress": true
+    }
+  },
+  "categories": {
+    "default": {
+      "appenders": [
+        "main", "errorFilter"
+      ],
+      "level": "DEBUG"
+    }
+  }
+}
