@@ -1,8 +1,0 @@
-{
-	"appid": "wx2421b1c4370ec43b",
-	"mch_id": "10000100",
-	"notify_url": "http://47.106.138.113:443/user_order/v1/wxpay_async_callback",
-	"trade_type": "APP",
-	"host": "47.106.138.113",
-	"key": "192006250b4c09247ec02edce69f6a2d"
-}

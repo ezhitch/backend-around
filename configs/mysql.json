@@ -1,0 +1,10 @@
+{
+	"host": "localhost",
+	"user": "root",
+	"password": "Devel@163.com",
+	"database": "around",
+	"port": 3306,
+	"connectionLimit": 16,
+	"multipleStatements": true,
+	"timezone": "08:00"
+}

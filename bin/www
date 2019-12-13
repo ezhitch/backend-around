@@ -1,44 +1,26 @@
 #!/usr/bin/env node
 
+const http = require('http');
+const path = require('path');
+const fs = require('fs');
+const log4js = require('log4js');
+log4js.configure(path.join(__dirname, '..', 'configs', 'log4js.json'));
+
 // create logs directory, if it's NOT exists
-let fs = require('fs');
-let path = require('path');
-let logsPath = path.join(__dirname, '..', 'logs');
+const logsPath = path.join(__dirname, '..', 'logs');
 if (!fs.existsSync(logsPath)) {
     fs.mkdirSync(logsPath);
 }
 
-// get port from environment, default port is 443
-let port = normalizePort(process.env.PORT || '443');
-let app = require('../app');
-
-// create HTTP server, listening on provided port, on all network interfaces
-let http = require('http');
-let server = http.createServer(app);
+// create HTTP server, listening on provided port, using log4js as logger
+const logger = log4js.getLogger(__filename);
+const app = require('../frontend/app');
+app.use(log4js.connectLogger(logger, {level: 'debug'}));
+const server = http.createServer(app);
+const port = 80;
 server.listen(port);
-server.on('error', onError); // 'error' event
-
-// configure log4js for logging
-let log4js = require('log4js');
-log4js.configure(path.join(__dirname, '..', 'sysconfigs', 'log4js.json'));
-let logger = log4js.getLogger(__filename);
-logger.debug('Create HTTP server. Listening on port: ', port);
-
-// normalize a port into a number, string, or false
-function normalizePort(val) {
-    let port = parseInt(val, 10);
-    if (isNaN(port)) {
-        // named pipe
-        return val;
-    }
-
-    if (port >= 0) {
-        // port number
-        return port;
-    }
-
-    return false;
-}
+server.on('error', onError);
+logger.debug('Create HTTP server success. Listening on port: ', port);
 
 // event listener for HTTP server 'error' event
 function onError(error) {
@@ -46,20 +28,18 @@ function onError(error) {
         throw error;
     }
 
-    let bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
-
     // handle specific listen errors with friendly messages
     switch (error.code) {
         case 'EACCES':
-            logger.error(bind, ' requires elevated privileges');
+            console.error('Port ', port, ' requires elevated privileges.');
             process.exit(1);
             break;
         case 'EADDRINUSE':
-            logger.error(bind, ' is already in use');
+            console.error('Port ', port, ' is already in use.');
             process.exit(1);
             break;
         default:
-            logger.error('Unknown error code: ', error.code);
+            console.error('Unknown error code: ', error.code);
             throw error;
     }
 }

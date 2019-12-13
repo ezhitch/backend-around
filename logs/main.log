@@ -1,0 +1,3 @@
+[2019-12-12T11:16:50.927] [DEBUG] /home/ezhitch/SES/Codes/backend/frontend/app.js - Request header parameter Content-Type is invalid. Expect application/json.
+[2019-12-12T11:17:20.030] [DEBUG] /home/ezhitch/SES/Codes/backend/frontend/app.js - Request header parameter Content-Type is invalid. Expect application/json.
+[2019-12-12T11:17:25.404] [DEBUG] /home/ezhitch/SES/Codes/backend/frontend/app.js - Request header parameter Content-Type is invalid. Expect application/json.
